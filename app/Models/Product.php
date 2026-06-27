@@ -18,6 +18,7 @@ class Product extends Model
         'license_type',
         'max_activations',
         'download_url',
+        'allowed_computers',
         'api_key',
         'description',
         'status',
@@ -27,4 +28,8 @@ class Product extends Model
 {
     return $this->hasMany(License::class);
 }
+
+public function isActive()
+{
+    return $this->status === 'active';
 }

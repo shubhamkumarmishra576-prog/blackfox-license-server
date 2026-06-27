@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Services\ApiKeyGenerator;
 
 
 class ProductController extends Controller
@@ -63,6 +64,7 @@ class ProductController extends Controller
         'license_type' => $validated['license_type'],
         'max_activations' => $validated['max_activations'],
         'status' => 'active',
+        'api_key' => ApiKeyGenerator::generate(),
     ]);
 
     return redirect()
