@@ -15,6 +15,8 @@ class License extends Model
         'license_key',
         'license_type',
         'max_activations',
+        'activation_mode',
+         'allowed_computers',
         'used_activations',
         'expires_at',
         'last_activation_at',

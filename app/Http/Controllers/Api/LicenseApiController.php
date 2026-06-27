@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Services\LicenseValidationService;
 
 class LicenseApiController extends Controller
 {
@@ -17,7 +18,10 @@ class LicenseApiController extends Controller
 
 
 
-    public function validateLicense(Request $request)
+    public function validateLicense(
+    Request $request,
+    LicenseValidationService $service
+)
 {
     $validated = $request->validate([
         'product_api_key' => 'required|string',
@@ -25,14 +29,22 @@ class LicenseApiController extends Controller
         'hardware_id'     => 'required|string',
     ]);
 
+    return response()->json(
+
+        $service->validate(
+            $validated['product_api_key'],
+            $validated['license_key'],
+            $validated['hardware_id']
+        )
+
+    );
+}
+
+public function deactivate(Request $request)
+{
     return response()->json([
         'success' => true,
-        'message' => 'Request received successfully.',
-        'data' => [
-            'product_api_key' => $validated['product_api_key'],
-            'license_key'     => $validated['license_key'],
-            'hardware_id'     => $validated['hardware_id'],
-        ]
+        'message' => 'Deactivation endpoint ready.'
     ]);
 }
 

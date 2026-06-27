@@ -11,31 +11,29 @@ return new class extends Migration
      */
     public function up(): void
 {
-    Schema::table('products', function (Blueprint $table) {
+    Schema::table('licenses', function (Blueprint $table) {
 
-        $table->string('api_key')->unique()->after('version');
+        $table->enum('activation_mode', [
+            'single',
+            'group'
+        ])->default('single')->after('max_activations');
 
-        $table->text('description')->nullable()->after('api_key');
-
-        $table->enum('status', [
-            'active',
-            'inactive'
-        ])->default('active')->after('description');
+        $table->integer('allowed_computers')
+              ->default(1)
+              ->after('activation_mode');
 
     });
 }
-
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+   public function down(): void
 {
-    Schema::table('products', function (Blueprint $table) {
+    Schema::table('licenses', function (Blueprint $table) {
 
         $table->dropColumn([
-            'api_key',
-            'description',
-            'status'
+            'activation_mode',
+            'allowed_computers',
         ]);
 
     });

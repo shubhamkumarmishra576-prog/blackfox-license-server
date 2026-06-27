@@ -32,10 +32,15 @@ $table->string('os_version')->nullable();
 
 $table->string('app_version')->nullable();
 
+$table->string('platform')->nullable();
+
+$table->string('app_build')->nullable();
+
 $table->ipAddress('last_ip')->nullable();
 
 $table->timestamp('last_seen_at')->nullable();
 
+$table->timestamp('activated_at')->nullable();
 $table->enum('status',[
     'active',
     'blocked'

@@ -31,6 +31,12 @@ $table->enum('license_type', [
 ]);
 
 $table->integer('max_activations')->default(1);
+$table->enum('activation_mode', [
+    'single',
+    'group'
+])->default('single');
+
+$table->integer('allowed_computers')->default(1);
 $table->integer('used_activations')->default(0);
 
 $table->timestamp('last_activation_at')->nullable();
