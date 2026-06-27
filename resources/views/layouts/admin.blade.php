@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,29 +10,27 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="bg-slate-900 text-white">
+<body class="bg-[#0f172a] text-white font-sans">
 
-<div class="flex h-screen">
+    <div class="flex min-h-screen">
 
-    {{-- Sidebar --}}
-    @include('layouts.sidebar')
-
-    <div class="flex-1 flex flex-col overflow-hidden">
-
-        {{-- Topbar --}}
-        @include('layouts.topbar')
+        {{-- Sidebar --}}
+        @include('layouts.sidebar')
 
         {{-- Main Content --}}
-        <main class="flex-1 overflow-y-auto bg-slate-900 p-6">
+        <div class="flex-1 flex flex-col">
 
-            {{ $slot }}
+            {{-- Topbar --}}
+            @include('layouts.topbar')
 
-        </main>
+            {{-- Page Content --}}
+            <main class="flex-1 p-8">
+    @yield('content')
+</main>
+
+        </div>
 
     </div>
 
-</div>
-
 </body>
-
 </html>

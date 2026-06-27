@@ -1,3 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    :root {
+        --bf-primary: #2563eb;
+        --bf-success: #10b981;
+        --bf-warning: #f59e0b;
+        --bf-danger: #ef4444;
+
+        --bf-bg: #0f172a;
+        --bf-sidebar: #111827;
+        --bf-card: #1e293b;
+        --bf-border: #334155;
+
+        --bf-text: #f8fafc;
+        --bf-text-muted: #94a3b8;
+
+        --bf-radius-card: 18px;
+        --bf-radius-button: 12px;
+    }
+
+    body {
+        background: var(--bf-bg);
+        color: var(--bf-text);
+        font-family: 'Inter', sans-serif;
+    }
+
+    * {
+        scrollbar-width: thin;
+    }
+}
