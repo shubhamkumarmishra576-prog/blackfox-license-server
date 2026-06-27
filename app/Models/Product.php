@@ -17,19 +17,20 @@ class Product extends Model
         'build_number',
         'license_type',
         'max_activations',
-        'download_url',
         'allowed_computers',
+        'download_url',
         'api_key',
         'description',
         'status',
     ];
 
     public function licenses()
-{
-    return $this->hasMany(License::class);
-}
+    {
+        return $this->hasMany(License::class);
+    }
 
-public function isActive()
-{
-    return $this->status === 'active';
+    public function isActive()
+    {
+        return $this->status === 'active';
+    }
 }

@@ -65,14 +65,14 @@
             </li>
 
             <li>
-                <a href="#"
-                   class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-300 hover:bg-slate-800 transition">
+                <a href="{{ route('licenses.index') }}"
+   class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-300 hover:bg-slate-800 transition">
 
-                    <i data-lucide="key-round" class="w-5 h-5"></i>
+    <i data-lucide="key-round" class="w-5 h-5"></i>
 
-                    Licenses
+    Licenses
 
-                </a>
+</a>
             </li>
 
             <li>
