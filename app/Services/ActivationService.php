@@ -34,9 +34,20 @@ if ($license->expires_at && now()->greaterThan($license->expires_at)) {
         if ($existing) {
 
             $existing->update([
-                'last_seen_at' => now(),
-                'last_ip' => request()->ip(),
-            ]);
+
+    'computer_name' => $device['computer_name'],
+
+    'os_name' => $device['os_name'] ?? $existing->os_name,
+
+    'os_version' => $device['os_version'] ?? $existing->os_version,
+
+    'app_version' => $device['app_version'] ?? $existing->app_version,
+
+    'last_seen_at' => now(),
+
+    'last_ip' => request()->ip(),
+
+]);
 
             return [
                 'success' => true,
