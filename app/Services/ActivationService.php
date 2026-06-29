@@ -9,6 +9,24 @@ class ActivationService
 {
     public function activate(License $license, array $device): array
     {
+        if ($license->status !== 'active') {
+
+    return [
+        'success' => false,
+        'message' => 'License is not active.'
+    ];
+
+}
+
+if ($license->expires_at && now()->greaterThan($license->expires_at)) {
+
+    return [
+        'success' => false,
+        'message' => 'License has expired.'
+    ];
+
+}
+
         $existing = Computer::where('hardware_id', $device['hardware_id'])
             ->where('license_id', $license->id)
             ->first();
@@ -26,26 +44,55 @@ class ActivationService
             ];
         }
 
-        if ($license->used_activations >= $license->allowed_computers) {
+        // Single Computer License
+if ($license->activation_mode === 'single') {
 
-            return [
-                'success' => false,
-                'message' => 'Activation limit reached.'
-            ];
-        }
+    if ($license->used_activations >= 1) {
+
+        return [
+            'success' => false,
+            'message' => 'This license is already activated on another computer.'
+        ];
+
+    }
+
+}
+
+// Group License
+if ($license->activation_mode === 'group') {
+
+    if ($license->used_activations >= $license->allowed_computers) {
+
+        return [
+            'success' => false,
+            'message' => 'Activation limit reached.'
+        ];
+
+    }
+
+}
 
         Computer::create([
 
-            'client_id'      => $license->client_id,
-            'license_id'     => $license->id,
+           'client_id'      => $license->client_id,
+
+           'license_id'     => $license->id,
+
             'computer_name'  => $device['computer_name'],
+
             'hardware_id'    => $device['hardware_id'],
-            'platform'       => $device['platform'] ?? null,
+
+            'os_name'        => $device['os_name'] ?? null,
+
+            'os_version'     => $device['os_version'] ?? null,
+
             'app_version'    => $device['app_version'] ?? null,
-            'status'         => 'active',
-            'activated_at'   => now(),
-            'last_seen_at'   => now(),
+
             'last_ip'        => request()->ip(),
+
+            'last_seen_at'   => now(),
+
+            'status'         => 'active',
 
         ]);
 

@@ -46,17 +46,37 @@
 
             <tbody>
 
-                <tr>
+@if($licenses->count())
 
-                    <td colspan="6" class="py-10 text-center text-slate-500">
+    @foreach($licenses as $license)
 
-                        No Licenses Available
+    <tr class="border-b border-slate-800">
+    <td class="py-4">{{ $license->id }}</td>
+    <td>{{ $license->license_key }}</td>
+    <td>{{ $license->client->company_name }}</td>
 
-                    </td>
+    <td>{{ $license->product->product_name }}</td>
+    <td>{{ $license->status }}</td>
+    <td>-</td>
+</tr>
 
-                </tr>
+    @endforeach
 
-            </tbody>
+@else
+
+<tr>
+
+<td colspan="6" class="py-10 text-center text-slate-500">
+
+No Licenses Available
+
+</td>
+
+</tr>
+
+@endif
+
+</tbody>
 
         </table>
 
